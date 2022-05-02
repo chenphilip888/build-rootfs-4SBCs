@@ -1,0 +1,34 @@
+This is to build linaro debian buster rootfs for following SBC's:
+rpi4b  ( Raspberry Pi 4B )
+radxa  ( Rock Pi 4B plus )
+rk3328 ( Renegade ROC-RK3328-CC )
+tinker ( ASUS TinkerBoard )
+
+Steps to build rootfs:
+
+1. git clone https://github.com/chenphilip888/build-rootfs-4SBCs.git
+   cd build-rootfs-4SBCs
+
+2. Install live-build:
+   sudo apt-get install debootstrap debhelper kpartx gdisk devscripts dh-systemd live-build isolinux po4a
+
+3. cd ~/build-rootfs-4SBCs/rpi4b
+   make all
+   The result is in ~/build-rootfs-4SBCs/rpi4b/linaro-rootfs.img
+   make clean
+
+4. cd ~/build-rootfs-4SBCs/radxa
+   make all
+   The result is in ~/build-rootfs-4SBCs/radxa/linaro-rootfs.img
+   make clean
+
+5. cd ~/build-rootfs-4SBCs/rk3328
+   make all
+   The result is in ~/build-rootfs-4SBCs/rk3328/linaro-rootfs.img
+   make clean
+
+6. cd ~/build-rootfs-4SBCs/tinker
+   make all
+   The result is in ~/build-rootfs-4SBCs/tinker/linaro-rootfs.img
+   make clean
+
