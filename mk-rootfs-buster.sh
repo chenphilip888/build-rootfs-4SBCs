@@ -65,6 +65,7 @@ apt-get install -f -y
 if [ "$BOARD" != "rpi4b" ]; then
 dpkg -i /packages/xserver/*.deb
 apt-get install -f -y
+apt-get install -y libinput-bin libinput10 xserver-xorg-input-all xserver-xorg-input-libinput
 fi
 
 if [ "$BOARD" == "radxa" ]; then
