@@ -10,7 +10,11 @@ Steps to build rootfs:
    cd build-rootfs-4SBCs
 
 2. Install live-build:
-   sudo apt-get install debootstrap debhelper kpartx gdisk devscripts dh-systemd live-build isolinux po4a
+   sudo apt-get install debootstrap debhelper kpartx gdisk devscripts dh-systemd isolinux po4a
+   wget https://launchpad.net/debian/+archive/primary/+sourcefiles/live-build/1:20210407/live-build_20210407.tar.xz
+   tar xvf live-build_20210407.tar.xz
+   cd live-build
+   sudo make install
 
 3. cd ~/build-rootfs-4SBCs/rpi4b ( or radxa, rk3328, tinker, depends on SBC )
    make all
