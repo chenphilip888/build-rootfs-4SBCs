@@ -19,7 +19,7 @@ if [ ! $VERSION ]; then
 	VERSION="release"
 fi
 
-if [ ! -e binary-tar.tar.gz ]; then
+if [ ! -e live-image-$ARCH.tar.tar.gz ]; then
 	echo "\033[36m Run sudo lb build first \033[0m"
 fi
 
@@ -30,7 +30,7 @@ finish() {
 trap finish ERR
 
 echo -e "\033[36m Extract image \033[0m"
-sudo tar -xpf binary-tar.tar.gz
+sudo tar -xpf live-image-$ARCH.tar.tar.gz
 
 # packages folder
 sudo mkdir -p $TARGET_ROOTFS_DIR/packages
@@ -49,7 +49,7 @@ sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
 cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 
-ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
+ln -sf /etc/resolvconf/run/resolv.conf /etc/resolv.conf
 resolvconf -u
 apt-get update
 apt-get upgrade -y
