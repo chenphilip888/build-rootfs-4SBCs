@@ -1,4 +1,15 @@
-#!/bin/bash -e
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:		rockchip
+# Required-Start:	$remote_fs $syslog
+# Required-Stop:	$remote_fs $syslog
+# Default-Start:	2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:	OpenBSD Secure Shell server
+### END INIT INFO
+
+set -e
 
 PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
@@ -55,36 +66,23 @@ init_rkwifibt() {
     esac
 }
 
-function update_npu_fw() {
-    /usr/bin/npu-image.sh
-    sleep 1
-    /usr/bin/npu_transfer_proxy&
-}
-
 COMPATIBLE=$(cat /proc/device-tree/compatible)
-if [[ $COMPATIBLE =~ "rk3288" ]];
-then
-    CHIPNAME="rk3288"
-elif [[ $COMPATIBLE =~ "rk3328" ]]; then
-    CHIPNAME="rk3328"
-elif [[ $COMPATIBLE =~ "rk3399" && $COMPATIBLE =~ "rk3399pro" ]]; then
-    CHIPNAME="rk3399pro"
-    update_npu_fw
-elif [[ $COMPATIBLE =~ "rk3399" ]]; then
-    CHIPNAME="rk3399"
-elif [[ $COMPATIBLE =~ "rk3326" ]]; then
-    CHIPNAME="rk3326"
-elif [[ $COMPATIBLE =~ "px30" ]]; then
-    CHIPNAME="px30"
-elif [[ $COMPATIBLE =~ "rk3128" ]]; then
-    CHIPNAME="rk3128"
-elif [[ $COMPATIBLE =~ "rk3566" ]]; then
-    CHIPNAME="rk3566"
-elif [[ $COMPATIBLE =~ "rk3568" ]]; then
-    CHIPNAME="rk3568"
-else
-    CHIPNAME="rk3036"
-fi
+
+case "$COMPATIBLE" in
+   (*'rk3288')
+	CHIPNAME="rk3288"
+	;;
+   (*'rk3328')
+	CHIPNAME="rk3328"
+	;;
+   (*'rk3399')
+	CHIPNAME="rk3399"
+	;;
+   (*)
+	CHIPNAME="rk3036"
+	;;
+esac
+
 COMPATIBLE=${COMPATIBLE#rockchip,}
 BOARDNAME=${COMPATIBLE%%rockchip,*}
 

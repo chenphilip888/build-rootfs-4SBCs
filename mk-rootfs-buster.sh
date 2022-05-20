@@ -49,18 +49,13 @@ sudo mount -o bind /dev $TARGET_ROOTFS_DIR/dev
 
 cat << EOF | sudo chroot $TARGET_ROOTFS_DIR
 
+ln -sf /run/resolvconf/resolv.conf /etc/resolv.conf
+resolvconf -u
 apt-get update
 apt-get upgrade -y
 
 chmod o+x /usr/lib/dbus-1.0/dbus-daemon-launch-helper
 chmod +x /etc/rc.local
-
-#---------------system--------------
-apt-get install -y git fakeroot devscripts cmake binfmt-support dh-make dh-exec pkg-kde-tools device-tree-compiler \
-bc cpio parted dosfstools mtools libssl-dev dpkg-dev ntp rsyslog wget gdb net-tools inetutils-ping openssh-server \
-ifupdown alsa-utils python vim ntp git libssl-dev vsftpd tcpdump can-utils i2c-tools strace network-manager onboard \
-evtest sox libsox-fmt-all
-apt-get install -f -y
 
 if [ "$BOARD" != "rpi4b" ]; then
 dpkg -i /packages/xserver/*.deb
@@ -81,6 +76,8 @@ dpkg -i /packages/rpiwifi/firmware-brcm80211_20190114-2_all.deb
 cp /packages/rpiwifi/brcmfmac43455-sdio.txt /lib/firmware/brcm/
 apt-get install -f -y
 fi
+
+systemctl enable rockchip.service
 
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*

@@ -12,23 +12,18 @@ Steps to build rootfs:
 2. Install live-build:
    sudo apt-get install debootstrap debhelper kpartx gdisk devscripts dh-systemd live-build isolinux po4a
 
-3. cd ~/build-rootfs-4SBCs/rpi4b
+3. cd ~/build-rootfs-4SBCs/rpi4b ( or radxa, rk3328, tinker, depends on SBC )
    make all
-   The result is in ~/build-rootfs-4SBCs/rpi4b/linaro-rootfs.img
+   The result is in ./linaro-rootfs.img
    make clean
 
-4. cd ~/build-rootfs-4SBCs/radxa
-   make all
-   The result is in ~/build-rootfs-4SBCs/radxa/linaro-rootfs.img
-   make clean
-
-5. cd ~/build-rootfs-4SBCs/rk3328
-   make all
-   The result is in ~/build-rootfs-4SBCs/rk3328/linaro-rootfs.img
-   make clean
-
-6. cd ~/build-rootfs-4SBCs/tinker
-   make all
-   The result is in ~/build-rootfs-4SBCs/tinker/linaro-rootfs.img
-   make clean
-
+login:
+username: linaro
+password: linaro
+uname -a
+lsb_release -a
+sudo dpkg-reconfigure tzdata
+sudo dpkg-reconfigure locales
+sudo apt update
+sudo apt upgrade
+sudo apt dist-upgrade
