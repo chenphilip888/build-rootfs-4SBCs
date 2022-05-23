@@ -80,6 +80,7 @@ apt-get install -f -y
 fi
 
 systemctl enable rockchip.service
+systemctl enable resize-helper
 
 #---------------Clean--------------
 rm -rf /var/lib/apt/lists/*
